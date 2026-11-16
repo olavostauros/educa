@@ -45,11 +45,23 @@ Questões em aberto:
   avaliando alternativas como JSONL, MessagePack ou Parquet para datasets maiores; solução com
   SQL fica como segunda opção
 
+## Agente
+
+Educa vai ter um agente que resolve, explica e ensina questões — e que também lê editais para
+ajudar o estudante a entender o que vai cair na prova.
+
+Questões em aberto:
+
+- Onde o agente roda — o site é estático, então a feature exige backend, função serverless ou
+  integração direta com API de LLM
+- Escolha do modelo e provider
+- Como o agente acessa o banco de questões, editais, recursos e decisões (RAG sobre os arquivos
+  de dados vs. contexto direto)
+- Custos e limites de uso por estudante
+
 ## Próximos passos
 
-O banco de dados também vai incluir editais, recursos e decisões das bancas. Eventualmente, Educa
-vai ter um agente que resolve, explica e ensina questões — e que também lê editais para ajudar o
-estudante a entender o que vai cair na prova.
+O banco de dados também vai incluir editais, recursos e decisões das bancas.
 
 ## Origem
 
