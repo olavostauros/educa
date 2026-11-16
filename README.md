@@ -21,10 +21,16 @@ Brasil, de graça e sem cadastro.
 O site é estático. As questões vêm de um snapshot do banco de questões, extraído dos PDFs oficiais
 das bancas, com gabarito definitivo e a fonte de cada questão.
 
-## Stack do front-end
+## Front-end
 
 - Astro, TypeScript e Tailwind CSS
 - Site estático publicado no GitHub Pages
+
+Questões em aberto:
+
+- Uso de React — se e onde faz sentido introduzir componentes interativos além do que o Astro
+  entrega sozinho
+- Desenvolvimento do design system e definição dos tokens (cores, tipografia, espaçamento)
 
 ## Crawling e dados
 
