@@ -18,9 +18,8 @@ Brasil, de graça e sem cadastro.
 
 ## Como funciona
 
-O site é estático (Astro, TypeScript e Tailwind CSS, publicado no GitHub Pages). As questões vêm de
-um snapshot do banco de questões, extraído dos PDFs oficiais das bancas, com gabarito definitivo e
-a fonte de cada questão.
+O site é estático. As questões vêm de um snapshot do banco de questões, extraído dos PDFs oficiais
+das bancas, com gabarito definitivo e a fonte de cada questão.
 
 ## Próximos passos
 
