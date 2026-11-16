@@ -41,8 +41,9 @@ Questões em aberto:
 
 Questões em aberto:
 
-- Banco de dados — PostgreSQL como opção principal, avaliando alternativas como SQLite, DuckDB
-  ou seguir com snapshots estáticos
+- Formato dos dados — arquivos JSON como opção principal (snapshots versionáveis no Git),
+  avaliando alternativas como JSONL, MessagePack ou Parquet para datasets maiores; solução com
+  SQL fica como segunda opção
 
 ## Próximos passos
 
