@@ -1,0 +1,60 @@
+[
+  {
+    "id": "cebraspe-2024-pf-escrivao-042",
+    "banca": "Cebraspe",
+    "orgao": "Polícia Federal",
+    "cargo": "Escrivão de Polícia Federal",
+    "ano": 2024,
+    "assunto": "Direito Administrativo",
+    "tipo": "certo_errado",
+    "enunciado": "A respeito dos atos administrativos, julgue o item a seguir. O atributo da presunção de legitimidade torna o ato administrativo presumivelmente válido até prova em contrário.",
+    "alternativas": ["Certo", "Errado"],
+    "gabarito": "certo",
+    "fonte": "https://cdn.cebraspe.org.br/concursos/PF_24/"
+  },
+  {
+    "id": "cebraspe-2023-tse-tecnico-021",
+    "banca": "Cebraspe",
+    "orgao": "TSE",
+    "cargo": "Técnico Judiciário",
+    "ano": 2023,
+    "assunto": "Direito Constitucional",
+    "tipo": "certo_errado",
+    "enunciado": "No que se refere aos direitos e garantias fundamentais, julgue o item a seguir. É livre a expressão da atividade intelectual, artística, científica e de comunicação, independentemente de censura ou licença.",
+    "alternativas": ["Certo", "Errado"],
+    "gabarito": "certo",
+    "fonte": "https://cdn.cebraspe.org.br/concursos/TSE_23/"
+  },
+  {
+    "id": "fgv-2023-ibama-analista-017",
+    "banca": "FGV",
+    "orgao": "IBAMA",
+    "cargo": "Analista Administrativo",
+    "ano": 2023,
+    "assunto": "Língua Portuguesa",
+    "tipo": "multipla_escolha",
+    "enunciado": "Assinale a frase em que a concordância verbal está de acordo com a norma-padrão.",
+    "alternativas": [
+      "Fazem dois anos que ele não aparece.",
+      "Havia muitos candidatos na sala.",
+      "Existe vagas para todos os cargos.",
+      "Deve haver recursos contra o resultado.",
+      "Podem existir soluções melhores."
+    ],
+    "gabarito": "b",
+    "fonte": "https://conhecimento.fgv.br/concursos/ibama23"
+  },
+  {
+    "id": "fcc-2022-trt15-tecnico-011",
+    "banca": "FCC",
+    "orgao": "TRT 15ª Região",
+    "cargo": "Técnico Judiciário",
+    "ano": 2022,
+    "assunto": "Raciocínio Lógico",
+    "tipo": "multipla_escolha",
+    "enunciado": "Em uma sequência numérica, cada termo é obtido somando-se 7 ao termo anterior. Se o primeiro termo é 4, o sexto termo é:",
+    "alternativas": ["32", "39", "42", "46", "49"],
+    "gabarito": "b",
+    "fonte": "https://www.concursosfcc.com.br/"
+  }
+]

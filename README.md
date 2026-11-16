@@ -87,7 +87,7 @@ Pré-requisitos: Node.js 20+ e Python 3.12+.
 ```bash
 cd web
 npm install
-npm run dev     # desenvolvimento em http://localhost:4321
+npm run dev     # desenvolvimento em http://localhost:4321/educa/
 npm run build   # gera o site estático em dist/
 npm run preview # serve o build de produção localmente
 ```
@@ -107,6 +107,14 @@ cd pipeline
 pip install -r requirements.txt
 python extract.py --in data/raw --out data/questions.json
 ```
+
+### Deploy
+
+O site é publicado automaticamente no GitHub Pages a cada push na branch `master`, pelo workflow
+`.github/workflows/deploy.yml`. URL de produção: https://olavostauros.github.io/educa/
+
+O deploy também pode ser disparado manualmente em **Actions → Deploy to GitHub Pages → Run
+workflow**.
 
 ## Stack
 
