@@ -39,6 +39,11 @@ Questões em aberto:
 - As questões são extraídas dos PDFs com gabarito definitivo e fonte
 - O site consome um snapshot do banco de questões gerado por esse pipeline
 
+Questões em aberto:
+
+- Banco de dados — PostgreSQL como opção principal, avaliando alternativas como SQLite, DuckDB
+  ou seguir com snapshots estáticos
+
 ## Próximos passos
 
 O banco de dados também vai incluir editais, recursos e decisões das bancas. Eventualmente, Educa
