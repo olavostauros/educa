@@ -28,14 +28,6 @@ O banco de dados também vai incluir editais, recursos e decisões das bancas. E
 vai ter um agente que resolve, explica e ensina questões — e que também lê editais para ajudar o
 estudante a entender o que vai cair na prova.
 
-## Desenvolvimento
-
-```
-npm ci
-npm run dev      # http://localhost:4321/educa/
-npm run gates    # check + testes + build
-```
-
 ## Origem
 
 Educa nasceu do [Plantão](https://github.com/olavostauros/plantao), que cataloga questões de
