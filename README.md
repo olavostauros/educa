@@ -37,21 +37,22 @@ resolve um bloco de 20 questões e confere o gabarito com a fonte oficial de cad
 ## Como funciona
 
 ```
-sites das bancas ──> crawlers ──> PDFs oficiais ──> extração ──> banco de questões (JSON)
-                                                                        │
-                                              site estático <── snapshot versionado
+sites das bancas ──> crawler ──> PDFs oficiais ──> extração ──> Postgres ──> api ──> site
+                  (scheduler)
 ```
 
-1. **Crawlers** em Python (Scrapy e Playwright) coletam provas e gabaritos nos sites das bancas.
-2. Um **pipeline de extração** lê os PDFs e gera questões estruturadas, com gabarito definitivo
-   e fonte.
-3. O banco de questões é consolidado em **snapshots JSON**, versionados junto ao código.
-4. O **site estático** consome o snapshot em tempo de build e é publicado no GitHub Pages — sem
-   backend, sem custo de infraestrutura.
+1. O container **`crawler`** coleta provas e gabaritos nos sites das bancas em um agendamento
+   (scheduler), extrai as questões dos PDFs e grava tudo no **Postgres** — com gabarito
+   definitivo e fonte.
+2. O container **`api`** serve o banco de questões para o site.
+3. O **site** consome a API para filtrar, listar e exibir questões e provas.
+
+`crawler` e `api` rodam a partir da **mesma imagem Docker `educa`**, orquestrada pelo compose
+junto com o container do Postgres — tanto no desenvolvimento local quanto no deploy.
 
 ### Formato dos dados
 
-Cada questão é um registro JSON com metadados de filtro, enunciado, gabarito e fonte:
+Cada questão é um registro no Postgres com metadados de filtro, enunciado, gabarito e fonte:
 
 ```json
 {
@@ -72,15 +73,28 @@ Cada questão é um registro JSON com metadados de filtro, enunciado, gabarito e
 
 ```
 educa/
-├── web/        # site estático (Astro, TypeScript, Tailwind CSS)
-├── crawlers/   # coleta de provas e PDFs (Python, Scrapy, Playwright)
-├── pipeline/   # extração de questões dos PDFs para o banco de dados
-└── data/       # snapshots JSON do banco de questões
+├── web/          # site (Astro, TypeScript, Tailwind CSS)
+├── crawler/      # coleta e extração de provas (Python) — roda em schedule
+├── api/          # API do banco de questões (Python)
+├── Dockerfile    # imagem única `educa` — base dos containers crawler e api
+└── compose.yaml  # api + crawler + Postgres (dev local e deploy na VM)
 ```
 
 ## Como executar
 
-Pré-requisitos: Node.js 20+ e Python 3.12+.
+Pré-requisitos: Docker (com o plugin compose) e Node.js 22+ para o site.
+
+### Operação (api + crawler + Postgres)
+
+```bash
+docker compose up --build
+```
+
+Sobe três containers a partir do `compose.yaml`:
+
+- `db` — Postgres, o banco de questões
+- `api` — API que serve o banco de questões
+- `crawler` — coleta e extração de provas, executando em um agendamento
 
 ### Site
 
@@ -92,35 +106,30 @@ npm run build   # gera o site estático em dist/
 npm run preview # serve o build de produção localmente
 ```
 
-### Crawlers e extração
-
-```bash
-cd crawlers
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-playwright install              # browsers usados pelo Playwright
-scrapy crawl cebraspe           # exemplo: coleta as provas da banca Cebraspe
-```
-
-```bash
-cd pipeline
-pip install -r requirements.txt
-python extract.py --in data/raw --out data/questions.json
-```
-
 ### Deploy
 
-O site é publicado automaticamente no GitHub Pages a cada push na branch `master`, pelo workflow
+O backend é deployado em uma **VM no GCP** rodando o mesmo setup do desenvolvimento local: a
+imagem `educa` é publicada no Artifact Registry e a VM sobe os containers com o compose:
+
+```bash
+# na VM
+docker compose pull
+docker compose up -d
+```
+
+O front-end continua publicado no GitHub Pages a cada push na branch `master`, pelo workflow
 `.github/workflows/deploy.yml`. URL de produção: https://olavostauros.github.io/educa/
 
-O deploy também pode ser disparado manualmente em **Actions → Deploy to GitHub Pages → Run
-workflow**.
+O deploy do site também pode ser disparado manualmente em **Actions → Deploy to GitHub Pages →
+Run workflow**.
 
 ## Stack
 
 - **Front-end:** Astro, TypeScript e Tailwind CSS; site estático no GitHub Pages
-- **Crawling:** Python com Scrapy e Playwright
-- **Dados:** snapshots JSON versionados no Git
+- **API:** Python, servindo o banco de questões
+- **Crawler:** Python com Scrapy e Playwright, rodando em container com scheduler
+- **Banco de dados:** Postgres
+- **Infra:** Docker — imagem única `educa` e compose para dev local e deploy em VM no GCP
 - **Agente (planejado):** LLM que resolve, explica e ensina questões e lê editais
 
 ## Questões em aberto
@@ -132,20 +141,13 @@ workflow**.
 - Desenvolvimento do design system — definição dos tokens (cores, tipografia, espaçamento) e
   componentes base como botões e ícones
 
-**Dados**
-
-- Formato dos dados — arquivos JSON como opção principal (snapshots versionáveis no Git),
-  avaliando alternativas como JSONL, MessagePack ou Parquet para datasets maiores; solução com
-  SQL fica como segunda opção
-
 **Agente** — resolve, explica e ensina questões, e lê editais para ajudar o estudante a entender
 o que vai cair na prova
 
-- Onde o agente roda — o site é estático, então a feature exige backend, função serverless ou
-  integração direta com API de LLM
+- O agente roda no backend (a `api` já existe) — resta definir em qual ponto da API ele é exposto
 - Escolha do modelo e provider
-- Como o agente acessa o banco de questões, editais, recursos e decisões (RAG sobre os arquivos
-  de dados vs. contexto direto)
+- Como o agente acessa o banco de questões, editais, recursos e decisões (RAG sobre o Postgres
+  vs. contexto direto)
 - Custos e limites de uso por estudante
 
 ## Próximos passos
