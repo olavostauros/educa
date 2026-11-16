@@ -21,6 +21,17 @@ Brasil, de graça e sem cadastro.
 O site é estático. As questões vêm de um snapshot do banco de questões, extraído dos PDFs oficiais
 das bancas, com gabarito definitivo e a fonte de cada questão.
 
+## Stack do front-end
+
+- Astro, TypeScript e Tailwind CSS
+- Site estático publicado no GitHub Pages
+
+## Crawling e dados
+
+- Crawlers em Python (Scrapy e Playwright) coletam provas e PDFs oficiais das bancas
+- As questões são extraídas dos PDFs com gabarito definitivo e fonte
+- O site consome um snapshot do banco de questões gerado por esse pipeline
+
 ## Próximos passos
 
 O banco de dados também vai incluir editais, recursos e decisões das bancas. Eventualmente, Educa
