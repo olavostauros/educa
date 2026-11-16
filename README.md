@@ -24,8 +24,9 @@ a fonte de cada questão.
 
 ## Próximos passos
 
-Eventualmente, Educa vai ter um agente que resolve, explica e ensina questões — e que também lê
-editais para ajudar o estudante a entender o que vai cair na prova.
+O banco de dados também vai incluir editais, recursos e decisões das bancas. Eventualmente, Educa
+vai ter um agente que resolve, explica e ensina questões — e que também lê editais para ajudar o
+estudante a entender o que vai cair na prova.
 
 ## Desenvolvimento
 
