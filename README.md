@@ -28,8 +28,8 @@ das bancas, com gabarito definitivo e a fonte de cada questão.
 
 Questões em aberto:
 
-- Uso de React — se e onde faz sentido introduzir componentes interativos além do que o Astro
-  entrega sozinho
+- Uso de React ou Vue — se e onde faz sentido introduzir componentes interativos além do que o
+  Astro entrega sozinho
 - Desenvolvimento do design system e definição dos tokens (cores, tipografia, espaçamento)
 
 ## Crawling e dados
