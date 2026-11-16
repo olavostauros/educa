@@ -22,6 +22,11 @@ O site é estático (Astro, TypeScript e Tailwind CSS, publicado no GitHub Pages
 um snapshot do banco de questões, extraído dos PDFs oficiais das bancas, com gabarito definitivo e
 a fonte de cada questão.
 
+## Próximos passos
+
+Eventualmente, Educa vai ter um agente que resolve, explica e ensina questões — e que também lê
+editais para ajudar o estudante a entender o que vai cair na prova.
+
 ## Desenvolvimento
 
 ```
