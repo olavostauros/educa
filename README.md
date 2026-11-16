@@ -30,7 +30,8 @@ Questões em aberto:
 
 - Uso de React ou Vue — se e onde faz sentido introduzir componentes interativos além do que o
   Astro entrega sozinho
-- Desenvolvimento do design system e definição dos tokens (cores, tipografia, espaçamento)
+- Desenvolvimento do design system — definição dos tokens (cores, tipografia, espaçamento) e
+  componentes base como botões e ícones
 
 ## Crawling e dados
 
