@@ -1,4 +1,4 @@
-# Educa
+# Papiro
 
 Provas e questões oficiais de **concursos públicos brasileiros**, por banca, órgão, cargo, ano e
 assunto — de graça e sem cadastro.
@@ -22,7 +22,7 @@ Quem não pode pagar estuda pior. Isso é um problema de acesso à educação.
 
 ## A solução
 
-Educa é um site onde qualquer estudante acessa provas e resolve questões de concursos públicos
+Papiro é um site onde qualquer estudante acessa provas e resolve questões de concursos públicos
 brasileiros, de graça e sem cadastro:
 
 - Filtre questões por **banca, órgão, cargo, ano e assunto**
@@ -30,7 +30,7 @@ brasileiros, de graça e sem cadastro:
 - Acesse **provas oficiais completas** para montar seus simulados
 - Cada questão traz o **gabarito definitivo** e a **fonte** de onde foi extraída
 
-**Exemplo de uso:** Maria vai prestar o concurso do IBAMA para Analista Administrativo. No Educa
+**Exemplo de uso:** Maria vai prestar o concurso do IBAMA para Analista Administrativo. No Papiro
 ela filtra `banca: Cebraspe` + `cargo: Analista Administrativo` + `assunto: Língua Portuguesa`,
 resolve um bloco de 20 questões e confere o gabarito com a fonte oficial de cada uma.
 
@@ -47,7 +47,7 @@ sites das bancas ──> crawler ──> PDFs oficiais ──> extração ──
 2. O container **`api`** serve o banco de questões para o site.
 3. O **site** consome a API para filtrar, listar e exibir questões e provas.
 
-`crawler` e `api` rodam a partir da **mesma imagem Docker `educa`**, orquestrada pelo compose
+`crawler` e `api` rodam a partir da **mesma imagem Docker `papiro`**, orquestrada pelo compose
 junto com o container do Postgres — tanto no desenvolvimento local quanto no deploy.
 
 ### Formato dos dados
@@ -72,12 +72,12 @@ Cada questão é um registro no Postgres com metadados de filtro, enunciado, gab
 ## Estrutura do repositório
 
 ```
-educa/
+papiro/
 ├── web/                # site (Astro, TypeScript, Tailwind CSS)
 │   └── src/design/     # design system — tokens (cores, tipografia, espaçamento) e componentes base
 ├── crawler/            # coleta e extração de provas (Python) — roda em schedule
 ├── api/                # API do banco de questões (Python)
-├── Dockerfile          # imagem única `educa` — base dos containers crawler e api
+├── Dockerfile          # imagem única `papiro` — base dos containers crawler e api
 └── compose.yaml        # api + crawler + Postgres (dev local e deploy na VM)
 ```
 
@@ -102,7 +102,7 @@ Sobe três containers a partir do `compose.yaml`:
 ```bash
 cd web
 npm install
-npm run dev     # desenvolvimento em http://localhost:4321/educa/
+npm run dev     # desenvolvimento em http://localhost:4321/papiro/
 npm run build   # gera o site estático em dist/
 npm run preview # serve o build de produção localmente
 ```
@@ -110,7 +110,7 @@ npm run preview # serve o build de produção localmente
 ### Deploy
 
 O backend é deployado em uma **VM no GCP** rodando o mesmo setup do desenvolvimento local: a
-imagem `educa` é publicada no Artifact Registry e a VM sobe os containers com o compose:
+imagem `papiro` é publicada no Artifact Registry e a VM sobe os containers com o compose:
 
 ```bash
 # na VM
@@ -119,7 +119,7 @@ docker compose up -d
 ```
 
 O front-end continua publicado no GitHub Pages a cada push na branch `master`, pelo workflow
-`.github/workflows/deploy.yml`. URL de produção: https://olavostauros.github.io/educa/
+`.github/workflows/deploy.yml`. URL de produção: https://olavostauros.github.io/papiro/
 
 O deploy do site também pode ser disparado manualmente em **Actions → Deploy to GitHub Pages →
 Run workflow**.
@@ -130,7 +130,7 @@ Run workflow**.
 - **API:** Python, servindo o banco de questões
 - **Crawler:** Python com Scrapy e Playwright, rodando em container com scheduler
 - **Banco de dados:** Postgres
-- **Infra:** Docker — imagem única `educa` e compose para dev local e deploy em VM no GCP
+- **Infra:** Docker — imagem única `papiro` e compose para dev local e deploy em VM no GCP
 - **Agente (planejado):** LLM que resolve, explica e ensina questões e lê editais
 
 ## Questões em aberto
@@ -159,6 +159,6 @@ tipografia e espaçamento (via `@theme` do Tailwind) e os componentes base do si
 
 ## Origem
 
-Educa nasceu do [Plantão](https://github.com/olavostauros/plantao), que cataloga questões de
-provas oficiais de concursos policiais. Educa amplia o escopo para todos os concursos públicos
+Papiro nasceu do [Plantão](https://github.com/olavostauros/plantao), que cataloga questões de
+provas oficiais de concursos policiais. Papiro amplia o escopo para todos os concursos públicos
 brasileiros, com foco em estudantes.
