@@ -1,4 +1,4 @@
-# Papiro
+# papiro
 
 Provas e questões oficiais de **concursos públicos brasileiros**, por banca, órgão, cargo, ano e
 assunto — de graça e sem cadastro.
@@ -22,7 +22,7 @@ Quem não pode pagar estuda pior. Isso é um problema de acesso à educação.
 
 ## A solução
 
-Papiro é um site onde qualquer estudante acessa provas e resolve questões de concursos públicos
+papiro é um site onde qualquer estudante acessa provas e resolve questões de concursos públicos
 brasileiros, de graça e sem cadastro:
 
 - Filtre questões por **banca, órgão, cargo, ano e assunto**
@@ -30,7 +30,7 @@ brasileiros, de graça e sem cadastro:
 - Acesse **provas oficiais completas** para montar seus simulados
 - Cada questão traz o **gabarito definitivo** e a **fonte** de onde foi extraída
 
-**Exemplo de uso:** Maria vai prestar o concurso do IBAMA para Analista Administrativo. No Papiro
+**Exemplo de uso:** Maria vai prestar o concurso do IBAMA para Analista Administrativo. No papiro
 ela filtra `banca: Cebraspe` + `cargo: Analista Administrativo` + `assunto: Língua Portuguesa`,
 resolve um bloco de 20 questões e confere o gabarito com a fonte oficial de cada uma.
 
@@ -157,8 +157,14 @@ No front-end, o design system será construído em `web/src/design/`: tokens de 
 tipografia e espaçamento (via `@theme` do Tailwind) e os componentes base do site — botões,
 ícones, cards, inputs e o que mais a interface precisar.
 
+## O nome
+
+**papiro** é gíria de concurseiro para o calhamaço de estudo — a apostila, o livro, o edital
+enorme que precisa ser encarado de capa a capa. É também uma referência ao papiro original, um
+dos primeiros suportes de escrita da história: papel de estudar, desde sempre.
+
 ## Origem
 
-Papiro nasceu do [Plantão](https://github.com/olavostauros/plantao), que cataloga questões de
-provas oficiais de concursos policiais. Papiro amplia o escopo para todos os concursos públicos
+papiro nasceu do [Plantão](https://github.com/olavostauros/plantao), que cataloga questões de
+provas oficiais de concursos policiais. papiro amplia o escopo para todos os concursos públicos
 brasileiros, com foco em estudantes.
