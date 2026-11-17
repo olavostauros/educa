@@ -73,11 +73,12 @@ Cada questão é um registro no Postgres com metadados de filtro, enunciado, gab
 
 ```
 educa/
-├── web/          # site (Astro, TypeScript, Tailwind CSS)
-├── crawler/      # coleta e extração de provas (Python) — roda em schedule
-├── api/          # API do banco de questões (Python)
-├── Dockerfile    # imagem única `educa` — base dos containers crawler e api
-└── compose.yaml  # api + crawler + Postgres (dev local e deploy na VM)
+├── web/                # site (Astro, TypeScript, Tailwind CSS)
+│   └── src/design/     # design system — tokens (cores, tipografia, espaçamento) e componentes base
+├── crawler/            # coleta e extração de provas (Python) — roda em schedule
+├── api/                # API do banco de questões (Python)
+├── Dockerfile          # imagem única `educa` — base dos containers crawler e api
+└── compose.yaml        # api + crawler + Postgres (dev local e deploy na VM)
 ```
 
 ## Como executar
@@ -138,8 +139,6 @@ Run workflow**.
 
 - Uso de React ou Vue — se e onde faz sentido introduzir componentes interativos além do que o
   Astro entrega sozinho
-- Desenvolvimento do design system — definição dos tokens (cores, tipografia, espaçamento) e
-  componentes base como botões e ícones
 
 **Agente** — resolve, explica e ensina questões, e lê editais para ajudar o estudante a entender
 o que vai cair na prova
@@ -153,6 +152,10 @@ o que vai cair na prova
 ## Próximos passos
 
 O banco de dados também vai incluir editais, recursos e decisões das bancas.
+
+No front-end, o design system será construído em `web/src/design/`: tokens de cores,
+tipografia e espaçamento (via `@theme` do Tailwind) e os componentes base do site — botões,
+ícones, cards, inputs e o que mais a interface precisar.
 
 ## Origem
 
