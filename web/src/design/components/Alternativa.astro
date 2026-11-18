@@ -19,8 +19,8 @@ const { valor, letra, class: className, ...rest } = Astro.props;
   data-opcao={valor}
   class:list={[
     'group flex w-full cursor-pointer items-baseline gap-2 rounded-md border px-3 py-2 text-left text-sm transition-colors',
-    'border-line bg-surface text-ink-soft',
-    'enabled:hover:border-line-strong enabled:hover:bg-accent-soft enabled:hover:text-ink',
+    'border-line-strong bg-surface text-ink-soft',
+    'enabled:hover:border-accent enabled:hover:bg-accent-soft enabled:hover:text-ink',
     'data-[state=selected]:border-accent data-[state=selected]:bg-accent-soft data-[state=selected]:text-ink',
     'data-[state=correct]:border-success-line data-[state=correct]:bg-success-soft data-[state=correct]:text-success',
     'data-[state=wrong]:border-danger-line data-[state=wrong]:bg-danger-soft data-[state=wrong]:text-danger',
