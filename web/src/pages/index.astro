@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import SiteHeader from '../design/components/SiteHeader.astro';
 import SiteFooter from '../design/components/SiteFooter.astro';
 import Card from '../design/components/Card.astro';
+import Container from '../design/components/Container.astro';
 import Select from '../design/components/Select.astro';
 import QuestionCard from '../design/components/QuestionCard.astro';
 import questions from '../data/questions.json';
@@ -23,7 +24,7 @@ const filtros = [
 <Layout title="papiro — questões de concursos públicos">
   <SiteHeader />
 
-  <main class="mx-auto max-w-5xl px-4 py-10">
+  <Container as="main" class="py-10">
     <section class="mb-10">
       <h1 class="font-serif text-3xl font-bold tracking-tight sm:text-4xl">
         Provas e questões oficiais de concursos, de graça
@@ -52,7 +53,7 @@ const filtros = [
     <section class="space-y-4" aria-label="Questões">
       {questions.map((q) => <QuestionCard q={q} />)}
     </section>
-  </main>
+  </Container>
 
   <SiteFooter />
 

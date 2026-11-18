@@ -1,4 +1,5 @@
 ---
+import Container from './Container.astro';
 import { navItems } from '../nav';
 
 const projetoLinks = [
@@ -9,7 +10,7 @@ const projetoLinks = [
 ---
 
 <footer class="border-t border-line bg-surface">
-  <div class="mx-auto grid max-w-5xl gap-8 px-4 py-10 sm:grid-cols-3">
+  <Container class="grid gap-8 py-10 sm:grid-cols-3">
     <div>
       <p class="font-serif text-lg font-bold tracking-tight text-accent">papiro</p>
       <p class="mt-2 max-w-xs text-sm text-ink-soft">
@@ -51,11 +52,13 @@ const projetoLinks = [
         }
       </ul>
     </nav>
-  </div>
+  </Container>
 
   <div class="border-t border-line">
-    <p class="mx-auto max-w-5xl px-4 py-4 text-xs text-ink-soft">
-      papiro — feito para o HackBrasil, trilha Acesso à educação.
-    </p>
+    <Container class="py-4">
+      <p class="text-xs text-ink-soft">
+        papiro — feito para o HackBrasil, trilha Acesso à educação.
+      </p>
+    </Container>
   </div>
 </footer>
