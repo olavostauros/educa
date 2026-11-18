@@ -1,13 +1,7 @@
 ---
 import Container from './Container.astro';
 import Logo from './Logo.astro';
-import { navItems } from '../nav';
-
-const projetoLinks = [
-  { href: 'https://github.com/olavostauros/papiro', label: 'Código no GitHub' },
-  { href: 'https://hackbrasil.com/', label: 'HackBrasil' },
-  { href: 'https://github.com/olavostauros/plantao', label: 'Plantão' },
-];
+import { navItems, projectLinks } from '../nav';
 ---
 
 <footer class="border-t border-line bg-surface">
@@ -38,7 +32,7 @@ const projetoLinks = [
       <p class="text-xs font-medium tracking-wide text-ink-soft uppercase">Projeto</p>
       <ul class="mt-3 space-y-2 text-sm">
         {
-          projetoLinks.map((link) => (
+          projectLinks.map((link) => (
             <li>
               <a
                 href={link.href}
