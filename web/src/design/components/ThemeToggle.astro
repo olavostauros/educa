@@ -1,0 +1,21 @@
+---
+import Sun from './icons/Sun.astro';
+import Moon from './icons/Moon.astro';
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Alternar tema"
+  class="inline-flex size-8 cursor-pointer items-center justify-center rounded-md border border-line text-ink-soft hover:bg-accent-soft hover:text-ink"
+>
+  <Sun class="hidden size-4 dark:block" />
+  <Moon class="size-4 dark:hidden" />
+</button>
+
+<script>
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    const dark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  });
+</script>
