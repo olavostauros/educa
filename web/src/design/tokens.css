@@ -20,6 +20,7 @@
   --color-ink-soft: oklch(0.47 0.045 133);
   --color-accent: var(--color-olive-700);
   --color-accent-strong: var(--color-olive-800);
+  --color-accent-soft: var(--color-olive-100);
   --color-success: oklch(0.5 0.1 150);
   --color-success-soft: oklch(0.93 0.03 150);
   --color-danger: oklch(0.5 0.14 30);
@@ -35,4 +36,30 @@
   --radius-md: 0.375rem;
   --radius-lg: 0.5rem;
   --radius-xl: 0.75rem;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  .dark {
+    color-scheme: dark;
+  }
+}
+
+.dark {
+  --color-paper: oklch(0.185 0.028 136);
+  --color-surface: oklch(0.235 0.032 135);
+  --color-line: var(--color-olive-800);
+  --color-ink: oklch(0.935 0.015 128);
+  --color-ink-soft: oklch(0.72 0.035 132);
+  --color-accent: var(--color-olive-300);
+  --color-accent-strong: var(--color-olive-200);
+  --color-accent-soft: var(--color-olive-800);
+  --color-success: oklch(0.7 0.13 155);
+  --color-success-soft: oklch(0.29 0.05 152);
+  --color-danger: oklch(0.7 0.15 32);
+  --color-danger-soft: oklch(0.31 0.06 32);
 }
