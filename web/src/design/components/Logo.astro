@@ -13,7 +13,7 @@ const Tag = href ? 'a' : 'p';
   href={href}
   {...rest}
   class:list={[
-    'font-serif font-bold tracking-tight text-accent',
+    'rounded-sm font-serif font-bold tracking-tight text-accent focus-visible:focus-ring',
     size === 'xl' ? 'text-xl' : 'text-lg',
     className,
   ]}
