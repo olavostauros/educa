@@ -2,8 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import SiteHeader from '../design/components/SiteHeader.astro';
 import SiteFooter from '../design/components/SiteFooter.astro';
-import Card from '../design/components/Card.astro';
 import Container from '../design/components/Container.astro';
+import EmptyState from '../design/components/EmptyState.astro';
 import PageHeader from '../design/components/PageHeader.astro';
 ---
 
@@ -15,9 +15,7 @@ import PageHeader from '../design/components/PageHeader.astro';
       Provas oficiais completas por banca, órgão, cargo e ano.
     </PageHeader>
 
-    <Card>
-      <p class="text-ink-soft">Em breve — a listagem de provas por concurso está em desenho.</p>
-    </Card>
+    <EmptyState>Em breve — a listagem de provas por concurso está em desenho.</EmptyState>
   </Container>
 
   <SiteFooter />

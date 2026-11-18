@@ -2,8 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import SiteHeader from '../design/components/SiteHeader.astro';
 import SiteFooter from '../design/components/SiteFooter.astro';
-import Card from '../design/components/Card.astro';
 import Container from '../design/components/Container.astro';
+import EmptyState from '../design/components/EmptyState.astro';
 import PageHeader from '../design/components/PageHeader.astro';
 ---
 
@@ -15,9 +15,7 @@ import PageHeader from '../design/components/PageHeader.astro';
       Monte um bloco de questões e resolva como se fosse a prova.
     </PageHeader>
 
-    <Card>
-      <p class="text-ink-soft">Em breve — a página de prova/simulado está em desenho.</p>
-    </Card>
+    <EmptyState>Em breve — a página de prova/simulado está em desenho.</EmptyState>
   </Container>
 
   <SiteFooter />

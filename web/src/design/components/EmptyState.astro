@@ -1,0 +1,13 @@
+---
+import Card from './Card.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<Card class={className}>
+  <p class="text-ink-soft"><slot /></p>
+</Card>
