@@ -1,0 +1,21 @@
+---
+interface Props {
+  label: string;
+  options: string[];
+  placeholder?: string;
+  class?: string;
+}
+
+const { label, options, placeholder = 'Todas', class: className, ...rest } = Astro.props;
+---
+
+<label class:list={['flex flex-col gap-1 text-xs font-medium text-ink-soft', className]}>
+  {label}
+  <select
+    {...rest}
+    class="rounded-md border border-line bg-surface px-2 py-1.5 text-sm text-ink focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none"
+  >
+    <option value="">{placeholder}</option>
+    {options.map((v) => <option value={v}>{v}</option>)}
+  </select>
+</label>

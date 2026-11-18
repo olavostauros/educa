@@ -1,0 +1,89 @@
+---
+import Badge from './Badge.astro';
+import Card from './Card.astro';
+
+interface Question {
+  id: string;
+  banca: string;
+  orgao: string;
+  cargo: string;
+  ano: number;
+  assunto: string;
+  tipo: 'certo_errado' | 'multipla_escolha';
+  enunciado: string;
+  alternativas: string[];
+  gabarito: string;
+  fonte: string;
+}
+
+interface Props {
+  q: Question;
+}
+
+const { q } = Astro.props;
+
+const letras = ['a', 'b', 'c', 'd', 'e'];
+const gabaritoTexto =
+  q.tipo === 'certo_errado'
+    ? q.gabarito === 'certo'
+      ? 'Certo'
+      : 'Errado'
+    : `Alternativa ${q.gabarito.toUpperCase()}`;
+---
+
+<Card
+  as="article"
+  class="questao"
+  data-banca={q.banca}
+  data-orgao={q.orgao}
+  data-cargo={q.cargo}
+  data-ano={String(q.ano)}
+  data-assunto={q.assunto}
+>
+  <p class="flex flex-wrap gap-x-2 gap-y-1 text-xs text-ink-soft">
+    <span class="font-medium text-ink">{q.banca}</span>
+    <span aria-hidden="true">·</span>
+    <span>{q.orgao}</span>
+    <span aria-hidden="true">·</span>
+    <span>{q.cargo}</span>
+    <span aria-hidden="true">·</span>
+    <span>{q.ano}</span>
+    <Badge class="ml-auto">{q.assunto}</Badge>
+  </p>
+
+  <p class="mt-3 font-serif text-base leading-relaxed sm:text-lg">{q.enunciado}</p>
+
+  <ul class="mt-3 space-y-1.5">
+    {
+      q.alternativas.map((alt, i) => (
+        <li class="flex gap-2 text-sm text-ink-soft">
+          <span class="font-medium text-olive-400">
+            {q.tipo === 'certo_errado' ? '' : `${letras[i].toUpperCase()})`}
+          </span>
+          {alt}
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="mt-4 flex flex-wrap items-center gap-4 text-sm">
+    <details class="group">
+      <summary
+        class="cursor-pointer rounded-md px-2.5 py-1 font-medium text-accent select-none hover:bg-olive-100"
+      >
+        Ver gabarito
+      </summary>
+      <p
+        class="mt-1.5 inline-block rounded-md bg-olive-100 px-2 py-1 font-medium text-olive-800"
+      >
+        {gabaritoTexto}
+      </p>
+    </details>
+    <a
+      href={q.fonte}
+      class="text-ink-soft underline decoration-line underline-offset-2 hover:text-ink"
+    >
+      Fonte oficial
+    </a>
+  </div>
+</Card>
