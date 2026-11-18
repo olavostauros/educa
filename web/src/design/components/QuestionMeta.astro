@@ -1,0 +1,24 @@
+---
+import Badge from './Badge.astro';
+
+interface Props {
+  banca: string;
+  orgao: string;
+  cargo: string;
+  ano: number;
+  assunto: string;
+}
+
+const { banca, orgao, cargo, ano, assunto } = Astro.props;
+---
+
+<p class="flex flex-wrap gap-x-2 gap-y-1 text-xs text-ink-soft">
+  <span class="font-medium text-ink">{banca}</span>
+  <span aria-hidden="true">·</span>
+  <span>{orgao}</span>
+  <span aria-hidden="true">·</span>
+  <span>{cargo}</span>
+  <span aria-hidden="true">·</span>
+  <span>{ano}</span>
+  <Badge class="ml-auto">{assunto}</Badge>
+</p>

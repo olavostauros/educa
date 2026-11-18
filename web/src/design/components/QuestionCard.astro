@@ -1,9 +1,9 @@
 ---
 import Alternativa from './Alternativa.astro';
-import Badge from './Badge.astro';
 import Button from './Button.astro';
 import Card from './Card.astro';
 import Link from './Link.astro';
+import QuestionMeta from './QuestionMeta.astro';
 
 interface Question {
   id: string;
@@ -50,16 +50,7 @@ const gabaritoTexto = certoErrado
   data-gabarito={q.gabarito}
   data-gabarito-texto={gabaritoTexto}
 >
-  <p class="flex flex-wrap gap-x-2 gap-y-1 text-xs text-ink-soft">
-    <span class="font-medium text-ink">{q.banca}</span>
-    <span aria-hidden="true">·</span>
-    <span>{q.orgao}</span>
-    <span aria-hidden="true">·</span>
-    <span>{q.cargo}</span>
-    <span aria-hidden="true">·</span>
-    <span>{q.ano}</span>
-    <Badge class="ml-auto">{q.assunto}</Badge>
-  </p>
+  <QuestionMeta banca={q.banca} orgao={q.orgao} cargo={q.cargo} ano={q.ano} assunto={q.assunto} />
 
   <p class="mt-3 font-serif text-base leading-relaxed sm:text-lg">{q.enunciado}</p>
 
