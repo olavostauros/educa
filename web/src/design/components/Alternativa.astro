@@ -1,0 +1,43 @@
+---
+interface Props {
+  valor: string;
+  letra?: string;
+  class?: string;
+}
+
+const { valor, letra, class: className, ...rest } = Astro.props;
+---
+
+<button
+  {...rest}
+  type="button"
+  role="radio"
+  aria-checked="false"
+  data-opcao={valor}
+  class:list={[
+    'group flex w-full cursor-pointer items-baseline gap-2 rounded-md border px-3 py-2 text-left text-sm transition-colors',
+    'border-line bg-surface text-ink-soft',
+    'enabled:hover:border-olive-300 enabled:hover:bg-accent-soft enabled:hover:text-ink',
+    'data-[state=selected]:border-accent data-[state=selected]:bg-accent-soft data-[state=selected]:text-ink',
+    'data-[state=correct]:border-success-line data-[state=correct]:bg-success-soft data-[state=correct]:text-success',
+    'data-[state=wrong]:border-danger-line data-[state=wrong]:bg-danger-soft data-[state=wrong]:text-danger',
+    'data-[state=dim]:opacity-60',
+    'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
+    'disabled:cursor-default',
+    className,
+  ]}
+>
+  {
+    letra && (
+      <span class="font-medium text-olive-400 group-data-[state=correct]:text-success group-data-[state=wrong]:text-danger">
+        {letra})
+      </span>
+    )
+  }
+  <span><slot /></span>
+  <span aria-hidden="true" class="ml-auto hidden font-medium group-data-[state=correct]:inline"
+    >✓</span
+  >
+  <span aria-hidden="true" class="ml-auto hidden font-medium group-data-[state=wrong]:inline">✗</span
+  >
+</button>

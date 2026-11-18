@@ -1,5 +1,7 @@
 ---
+import Alternativa from './Alternativa.astro';
 import Badge from './Badge.astro';
+import Button from './Button.astro';
 import Card from './Card.astro';
 
 interface Question {
@@ -23,12 +25,17 @@ interface Props {
 const { q } = Astro.props;
 
 const letras = ['a', 'b', 'c', 'd', 'e'];
-const gabaritoTexto =
-  q.tipo === 'certo_errado'
-    ? q.gabarito === 'certo'
-      ? 'Certo'
-      : 'Errado'
-    : `Alternativa ${q.gabarito.toUpperCase()}`;
+const certoErrado = q.tipo === 'certo_errado';
+const opcoes = q.alternativas.map((alt, i) => ({
+  valor: certoErrado ? alt.toLowerCase() : letras[i],
+  letra: certoErrado ? undefined : letras[i].toUpperCase(),
+  texto: alt,
+}));
+const gabaritoTexto = certoErrado
+  ? q.gabarito === 'certo'
+    ? 'Certo'
+    : 'Errado'
+  : `Alternativa ${q.gabarito.toUpperCase()}`;
 ---
 
 <Card
@@ -39,6 +46,8 @@ const gabaritoTexto =
   data-cargo={q.cargo}
   data-ano={String(q.ano)}
   data-assunto={q.assunto}
+  data-gabarito={q.gabarito}
+  data-gabarito-texto={gabaritoTexto}
 >
   <p class="flex flex-wrap gap-x-2 gap-y-1 text-xs text-ink-soft">
     <span class="font-medium text-ink">{q.banca}</span>
@@ -53,37 +62,84 @@ const gabaritoTexto =
 
   <p class="mt-3 font-serif text-base leading-relaxed sm:text-lg">{q.enunciado}</p>
 
-  <ul class="mt-3 space-y-1.5">
+  <div
+    class:list={['mt-3 grid gap-1.5', certoErrado && 'grid-cols-2']}
+    role="radiogroup"
+    aria-label="Alternativas"
+  >
     {
-      q.alternativas.map((alt, i) => (
-        <li class="flex gap-2 text-sm text-ink-soft">
-          <span class="font-medium text-olive-400">
-            {q.tipo === 'certo_errado' ? '' : `${letras[i].toUpperCase()})`}
-          </span>
-          {alt}
-        </li>
+      opcoes.map((op) => (
+        <Alternativa valor={op.valor} letra={op.letra} class={certoErrado && 'justify-center'}>
+          {op.texto}
+        </Alternativa>
       ))
     }
-  </ul>
+  </div>
 
   <div class="mt-4 flex flex-wrap items-center gap-4 text-sm">
-    <details class="group">
-      <summary
-        class="cursor-pointer rounded-md px-2.5 py-1 font-medium text-accent select-none hover:bg-accent-soft"
-      >
-        Ver gabarito
-      </summary>
-      <p
-        class="mt-1.5 inline-block rounded-md bg-accent-soft px-2 py-1 font-medium text-accent"
-      >
-        {gabaritoTexto}
-      </p>
-    </details>
+    <Button variant="ghost" size="sm" type="button" data-ver-gabarito>Ver gabarito</Button>
+    <p data-resultado role="status" class="hidden font-medium"></p>
     <a
       href={q.fonte}
-      class="text-ink-soft underline decoration-line underline-offset-2 hover:text-ink"
+      class="ml-auto text-ink-soft underline decoration-line underline-offset-2 hover:text-ink"
     >
       Fonte oficial
     </a>
   </div>
 </Card>
+
+<script>
+  document.querySelectorAll<HTMLElement>('article.questao').forEach((card) => {
+    const gabarito = card.dataset.gabarito;
+    const gabaritoTexto = card.dataset.gabaritoTexto;
+    const opcoes = [...card.querySelectorAll<HTMLButtonElement>('[data-opcao]')];
+    const botao = card.querySelector<HTMLButtonElement>('[data-ver-gabarito]');
+    const resultado = card.querySelector<HTMLElement>('[data-resultado]');
+    if (!gabarito || !botao || !resultado || !opcoes.length) return;
+
+    function marcar(opcao: HTMLButtonElement) {
+      opcoes.forEach((o) => {
+        delete o.dataset.state;
+        o.setAttribute('aria-checked', 'false');
+        o.tabIndex = -1;
+      });
+      opcao.dataset.state = 'selected';
+      opcao.setAttribute('aria-checked', 'true');
+      opcao.tabIndex = 0;
+    }
+
+    opcoes.forEach((opcao, i) => {
+      opcao.tabIndex = i === 0 ? 0 : -1;
+      opcao.addEventListener('click', () => marcar(opcao));
+      opcao.addEventListener('keydown', (e) => {
+        const delta = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+        if (!delta) return;
+        e.preventDefault();
+        const proximo = opcoes[(i + delta + opcoes.length) % opcoes.length];
+        proximo.focus();
+        marcar(proximo);
+      });
+    });
+
+    botao.addEventListener('click', () => {
+      let acertou: boolean | null = null;
+      opcoes.forEach((opcao) => {
+        const correta = opcao.dataset.opcao === gabarito;
+        const escolhida = opcao.getAttribute('aria-checked') === 'true';
+        opcao.dataset.state = correta ? 'correct' : escolhida ? 'wrong' : 'dim';
+        opcao.disabled = true;
+        if (escolhida) acertou = correta;
+      });
+
+      resultado.textContent =
+        acertou === null
+          ? `Gabarito: ${gabaritoTexto}`
+          : `${acertou ? 'Você acertou' : 'Você errou'} — gabarito: ${gabaritoTexto}`;
+      resultado.classList.remove('hidden');
+      resultado.classList.add(
+        acertou === false ? 'text-danger' : acertou ? 'text-success' : 'text-accent',
+      );
+      botao.classList.add('hidden');
+    });
+  });
+</script>
