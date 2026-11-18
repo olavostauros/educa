@@ -5,7 +5,8 @@ import Moon from './icons/Moon.astro';
 
 <button
   type="button"
-  aria-label="Alternar tema"
+  aria-label="Ativar tema escuro"
+  aria-pressed="false"
   data-theme-toggle
   class="inline-flex size-8 cursor-pointer items-center justify-center rounded-md border border-line-strong text-ink-soft hover:bg-accent-soft hover:text-ink focus-visible:focus-ring"
 >
@@ -14,10 +15,21 @@ import Moon from './icons/Moon.astro';
 </button>
 
 <script>
+  function syncToggles() {
+    const dark = document.documentElement.classList.contains('dark');
+    document.querySelectorAll('[data-theme-toggle]').forEach((toggle) => {
+      toggle.setAttribute('aria-pressed', String(dark));
+      toggle.setAttribute('aria-label', dark ? 'Ativar tema claro' : 'Ativar tema escuro');
+    });
+  }
+
+  syncToggles();
+
   document.addEventListener('click', (event) => {
     if (!(event.target instanceof Element) || !event.target.closest('[data-theme-toggle]'))
       return;
     const dark = document.documentElement.classList.toggle('dark');
     localStorage.setItem('theme', dark ? 'dark' : 'light');
+    syncToggles();
   });
 </script>
