@@ -14,8 +14,9 @@ web/src/
 ├── design/
 │   ├── tokens.css          # todos os design tokens (@theme do Tailwind v4) + modo escuro
 │   ├── nav.ts              # itens de navegação usados por SiteHeader e SiteFooter
-│   └── components/         # componentes base (.astro, sem framework de UI)
-│       └── icons/          # ícones SVG (Check, Moon, Sun, X)
+│   ├── components/         # componentes base (.astro, sem framework de UI)
+│   │   └── icons/          # ícones SVG (Check, Moon, Sun, X)
+│   └── elements/           # custom elements (.ts) — comportamento dos componentes
 ├── styles/global.css       # importa fontes, tailwindcss e tokens.css — único CSS global
 ├── layouts/Layout.astro    # <html>, <head>, script anti-FOUC de tema, skip link
 └── components/DocSection.astro  # usado apenas pela página /design/
@@ -24,7 +25,10 @@ web/src/
 Stack: **Astro + Tailwind CSS v4** (via `@tailwindcss/vite`). Não existe
 `tailwind.config` — toda a configuração é CSS-first em `tokens.css`. Fontes via
 `@fontsource-variable` (Inter e Source Serif 4). Sem React/Vue: interatividade é
-JavaScript vanilla em `<script>` dentro dos componentes/páginas.
+JavaScript vanilla na forma de **custom elements** (`design/elements/`) —
+`<question-card>`, `<question-filters>`, `<theme-toggle>` — que envolvem o markup
+dos componentes e se auto-inicializam em `connectedCallback`, com escopo por
+instância (`this.querySelector`) em vez de queries globais no `document`.
 
 ## Regras de ouro (leia antes de escrever UI)
 
@@ -39,6 +43,8 @@ JavaScript vanilla em `<script>` dentro dos componentes/páginas.
    semântica acessível (roles, `aria-*`, rótulos em pt-BR).
 4. **Estado visual via `data-*`**, não classes ad-hoc: componentes leem
    `data-state`, `data-opcao`, `data-filtro` etc. como contrato com o JavaScript.
+   Comportamento novo vai num custom element em `design/elements/` (ver
+   "Estendendo o sistema"), nunca num `<script>` com `document.querySelectorAll`.
 5. **Todo componente aceita `class?: string`** para ajustes pontuais, usando
    `class:list` no template, e espalha `...rest` para atributos extras
    (`data-*`, `aria-*`, `id`…). Siga esse padrão em componentes novos.
@@ -194,7 +200,7 @@ Pílula pequena (`rounded-full`, `text-xs font-medium`). `soft` usa
 
 `<label>` + `<select>` já rotulados e estilizados; a primeira `<option>` é o
 placeholder com `value=""`. Filtros consomem via `data-filtro` repassado por
-`...rest` (ver `index.astro`).
+`...rest` (ver `question-filters` e `index.astro`).
 
 ### Alternativa
 
@@ -224,8 +230,9 @@ assunto à direita (`ml-auto`).
 ### QuestionCard
 
 `q: Question` — cartão completo e interativo da questão (metadados, enunciado
-serifado, alternativas, "Ver gabarito", resultado, link da fonte). Inclui o
-`<script>` de interação (seleção por click/setas, correção via `data-state`).
+serifado, alternativas, "Ver gabarito", resultado, link da fonte). O markup é
+envolvido por `<question-card>` (`design/elements/question-card.ts`), que cuida
+da interação (seleção por click/setas, correção via `data-state`).
 
 ```ts
 interface Question {
@@ -243,10 +250,21 @@ interface Question {
 }
 ```
 
-Contrato `data-*` no `<article class="questao">` renderizado (usado pelo JS de
-filtro em `index.astro`): `data-banca`, `data-orgao`, `data-cargo`, `data-ano`,
-`data-assunto`, `data-gabarito`, `data-gabarito-texto`. Preserve esses
-atributos ao alterar o componente.
+Contrato `data-*` no elemento `<question-card>` renderizado: `data-banca`,
+`data-orgao`, `data-cargo`, `data-ano`, `data-assunto` (lidos pelo filtro —
+o elemento também leva `data-filter-item`), `data-gabarito` e
+`data-gabarito-texto` (lidos pelo próprio elemento para a correção). Preserve
+esses atributos ao alterar o componente.
+
+### question-filters
+
+Elemento wrapper (`design/elements/question-filters.ts`) que filtra itens por
+`<select>`s. Envolve a região que contém os filtros, a contagem e a lista;
+todo o escopo é o próprio elemento. Contrato interno:
+
+- `select[data-filtro="campo"]` — filtra itens cujo `dataset[campo]` bate com o valor;
+- `[data-filter-item]` — item filtrável (escondido via atributo `hidden`);
+- `[data-contagem]` — elemento que recebe a contagem de itens visíveis.
 
 ### Logo
 
@@ -264,9 +282,11 @@ para mexer na navegação, edite `navItems`/`projectLinks` lá.
 
 ### ThemeToggle
 
-Sem props. Botão `data-theme-toggle` que alterna `.dark` no `<html>` e persiste
-em `localStorage.theme`. O `<script>` é delegado (`document` click), então
-vários toggles na mesma página funcionam.
+Sem props. `<theme-toggle>` (`design/elements/theme-toggle.ts`) envolve um
+`<button>` que alterna `.dark` no `<html>` e persiste em `localStorage.theme`.
+Ao trocar, o elemento sincroniza `aria-pressed`/`aria-label` de todos os
+`<theme-toggle>` da página. O wrapper usa `display: contents` (global.css) e
+não interfere no layout.
 
 ### Ícones (`icons/`)
 
@@ -304,8 +324,12 @@ Padrões já embutidos que devem ser mantidos em código novo:
 **Novo componente:** crie `components/Nome.astro` seguindo o padrão dos
 existentes — `interface Props` tipada, `class?: string` + `class:list`,
 `...rest` para atributos extras, tokens semânticos, `focus-ring` se interativo.
-Se tiver comportamento, escreva o `<script>` vanilla com o contrato em
-`data-*`.
+Se tiver comportamento, crie `elements/nome-do-elemento.ts` com uma classe que
+estende `HTMLElement` (queries escopadas em `this`, estado por instância,
+guarda `customElements.get` antes de `define`), envolva o markup com a tag
+`<nome-do-elemento>`, carregue o módulo num `<script>import` do componente e
+defina o `display` do elemento em `global.css` (custom elements nascem
+`display: inline`).
 
 **Em ambos os casos:** adicione uma `DocSection` em `design.astro` (a página de
 showcase é a documentação viva — ela e este arquivo devem ficar sincronizados).

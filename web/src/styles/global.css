@@ -2,3 +2,17 @@
 @import '@fontsource-variable/source-serif-4';
 @import 'tailwindcss';
 @import '../design/tokens.css';
+
+/* Custom elements (design/elements/) — wrappers de comportamento */
+question-card,
+question-filters {
+  display: block;
+}
+
+question-card[hidden] {
+  display: none;
+}
+
+theme-toggle {
+  display: contents;
+}

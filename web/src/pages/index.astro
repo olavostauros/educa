@@ -52,47 +52,31 @@ const filtros = [
       hora, com a fonte de cada questão. Sem cadastro.
     </PageHeader>
 
-    <Card
-      as="section"
-      aria-label="Filtros"
-      class="mb-8 grid grid-cols-2 gap-3 p-4 sm:grid-cols-3 lg:grid-cols-5"
-    >
-      {
-        filtros.map((f) => (
-          <Select label={f.label} placeholder={f.placeholder} options={f.valores} data-filtro={f.id} />
-        ))
-      }
-      <p class="col-span-full text-sm text-ink-soft" role="status">
-        <span id="contagem">{questions.length}</span> questões
-      </p>
-    </Card>
+    <question-filters>
+      <Card
+        as="section"
+        aria-label="Filtros"
+        class="mb-8 grid grid-cols-2 gap-3 p-4 sm:grid-cols-3 lg:grid-cols-5"
+      >
+        {
+          filtros.map((f) => (
+            <Select label={f.label} placeholder={f.placeholder} options={f.valores} data-filtro={f.id} />
+          ))
+        }
+        <p class="col-span-full text-sm text-ink-soft" role="status">
+          <span data-contagem>{questions.length}</span> questões
+        </p>
+      </Card>
 
-    <section class="space-y-4" aria-label="Questões">
-      {questions.map((q) => <QuestionCard q={q} />)}
-    </section>
+      <section class="space-y-4" aria-label="Questões">
+        {questions.map((q) => <QuestionCard q={q} />)}
+      </section>
+    </question-filters>
   </Container>
 
   <SiteFooter />
 
   <script>
-    const selects = document.querySelectorAll<HTMLSelectElement>('select[data-filtro]');
-    const cards = document.querySelectorAll<HTMLElement>('article.questao');
-    const contagem = document.getElementById('contagem');
-
-    function filtrar() {
-      const ativos = [...selects]
-        .map((s) => ({ campo: s.dataset.filtro!, valor: s.value }))
-        .filter((f) => f.valor !== '');
-
-      let visiveis = 0;
-      cards.forEach((card) => {
-        const ok = ativos.every((f) => card.dataset[f.campo] === f.valor);
-        card.classList.toggle('hidden', !ok);
-        if (ok) visiveis++;
-      });
-      if (contagem) contagem.textContent = String(visiveis);
-    }
-
-    selects.forEach((s) => s.addEventListener('change', filtrar));
+    import '../design/elements/question-filters';
   </script>
 </Layout>
