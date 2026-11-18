@@ -10,15 +10,36 @@ import QuestionCard from '../design/components/QuestionCard.astro';
 import questions from '../data/questions.json';
 
 const filtros = [
-  { id: 'banca', label: 'Banca', valores: [...new Set(questions.map((q) => q.banca))].sort() },
-  { id: 'orgao', label: 'Órgão', valores: [...new Set(questions.map((q) => q.orgao))].sort() },
-  { id: 'cargo', label: 'Cargo', valores: [...new Set(questions.map((q) => q.cargo))].sort() },
+  {
+    id: 'banca',
+    label: 'Banca',
+    placeholder: 'Todas',
+    valores: [...new Set(questions.map((q) => q.banca))].sort(),
+  },
+  {
+    id: 'orgao',
+    label: 'Órgão',
+    placeholder: 'Todos',
+    valores: [...new Set(questions.map((q) => q.orgao))].sort(),
+  },
+  {
+    id: 'cargo',
+    label: 'Cargo',
+    placeholder: 'Todos',
+    valores: [...new Set(questions.map((q) => q.cargo))].sort(),
+  },
   {
     id: 'ano',
     label: 'Ano',
+    placeholder: 'Todos',
     valores: [...new Set(questions.map((q) => String(q.ano)))].sort().reverse(),
   },
-  { id: 'assunto', label: 'Assunto', valores: [...new Set(questions.map((q) => q.assunto))].sort() },
+  {
+    id: 'assunto',
+    label: 'Assunto',
+    placeholder: 'Todos',
+    valores: [...new Set(questions.map((q) => q.assunto))].sort(),
+  },
 ];
 ---
 
@@ -38,7 +59,7 @@ const filtros = [
     >
       {
         filtros.map((f) => (
-          <Select label={f.label} options={f.valores} data-filtro={f.id} />
+          <Select label={f.label} placeholder={f.placeholder} options={f.valores} data-filtro={f.id} />
         ))
       }
       <p class="col-span-full text-sm text-ink-soft" role="status">
