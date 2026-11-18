@@ -10,6 +10,13 @@ cd web && astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Design system
+
+Tokens and base components live in `web/src/design/`. Read
+`web/src/design/README.md` before writing any UI — it documents the semantic
+tokens, component props, dark mode, and conventions agents must follow.
+Interactive showcase: `web/src/pages/design.astro` (route `/papiro/design/`).
+
 ## Documentation
 
 Full documentation: https://docs.astro.build
