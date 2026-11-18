@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../design/components/SiteHeader.astro';
+import SiteFooter from '../design/components/SiteFooter.astro';
+import Card from '../design/components/Card.astro';
+---
+
+<Layout title="papiro — simulado">
+  <SiteHeader />
+
+  <main class="mx-auto max-w-5xl px-4 py-10">
+    <section class="mb-10">
+      <h1 class="font-serif text-3xl font-bold tracking-tight sm:text-4xl">Simulado</h1>
+      <p class="mt-3 max-w-2xl text-ink-soft">
+        Monte um bloco de questões e resolva como se fosse a prova.
+      </p>
+    </section>
+
+    <Card>
+      <p class="text-ink-soft">Em breve — a página de prova/simulado está em desenho.</p>
+    </Card>
+  </main>
+
+  <SiteFooter />
+</Layout>
