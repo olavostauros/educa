@@ -13,7 +13,7 @@ const { label, options, placeholder = 'Todas', class: className, ...rest } = Ast
   {label}
   <select
     {...rest}
-    class="rounded-md border border-line bg-surface px-2 py-1.5 text-sm text-ink focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none"
+    class="rounded-md border border-line bg-surface px-2 py-1.5 text-sm text-ink focus:border-accent focus:focus-ring focus:outline-none"
   >
     <option value="">{placeholder}</option>
     {options.map((v) => <option value={v}>{v}</option>)}
