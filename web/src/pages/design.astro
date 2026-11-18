@@ -1,0 +1,317 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DocSection from '../components/DocSection.astro';
+import SiteHeader from '../design/components/SiteHeader.astro';
+import SiteFooter from '../design/components/SiteFooter.astro';
+import Container from '../design/components/Container.astro';
+import PageHeader from '../design/components/PageHeader.astro';
+import Card from '../design/components/Card.astro';
+import Button from '../design/components/Button.astro';
+import Badge from '../design/components/Badge.astro';
+import Link from '../design/components/Link.astro';
+import Select from '../design/components/Select.astro';
+import Alternativa from '../design/components/Alternativa.astro';
+import QuestionMeta from '../design/components/QuestionMeta.astro';
+import QuestionCard from '../design/components/QuestionCard.astro';
+import EmptyState from '../design/components/EmptyState.astro';
+import Logo from '../design/components/Logo.astro';
+import ThemeToggle from '../design/components/ThemeToggle.astro';
+import Check from '../design/components/icons/Check.astro';
+import X from '../design/components/icons/X.astro';
+import Sun from '../design/components/icons/Sun.astro';
+import Moon from '../design/components/icons/Moon.astro';
+import questions from '../data/questions.json';
+
+const secoes = [
+  { id: 'cores', label: 'Cores' },
+  { id: 'tipografia', label: 'Tipografia' },
+  { id: 'raios', label: 'Raios' },
+  { id: 'botoes', label: 'Botões' },
+  { id: 'badges-e-links', label: 'Badges e links' },
+  { id: 'select', label: 'Select' },
+  { id: 'alternativa', label: 'Alternativa' },
+  { id: 'card-e-empty-state', label: 'Card e EmptyState' },
+  { id: 'questao', label: 'Questão' },
+  { id: 'marca', label: 'Marca e ícones' },
+];
+
+const olive = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+const semanticas = [
+  'paper',
+  'surface',
+  'line',
+  'line-strong',
+  'ink',
+  'ink-soft',
+  'ink-faint',
+  'accent',
+  'accent-strong',
+  'accent-soft',
+  'paper-glass',
+];
+const feedback = [
+  'success',
+  'success-soft',
+  'success-line',
+  'danger',
+  'danger-soft',
+  'danger-line',
+];
+const raios = ['sm', 'md', 'lg', 'xl'];
+
+const exemplo = questions.find((q) => q.tipo === 'multipla_escolha') ?? questions[0];
+---
+
+<Layout
+  title="papiro — design"
+  description="Showcase dos tokens e componentes do design system do papiro."
+>
+  <SiteHeader />
+
+  <Container as="main" class="py-10">
+    <PageHeader title="Design system">
+      Tokens e componentes usados no papiro, definidos em
+      <code class="rounded-sm bg-accent-soft px-1 py-0.5 font-mono text-xs text-accent"
+        >src/design/</code
+      >. Alterne o tema no cabeçalho para ver os tokens semânticos em modo escuro.
+    </PageHeader>
+
+    <nav aria-label="Seções" class="mb-12 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+      {secoes.map((s) => <Link href={`#${s.id}`}>{s.label}</Link>)}
+    </nav>
+
+    <DocSection
+      id="cores"
+      title="Cores"
+      desc="Escala fria de olive de baixo croma, tokens semânticos que se adaptam ao tema e cores de feedback."
+    >
+      <div class="space-y-6">
+        <div>
+          <h3 class="mb-3 text-xs font-medium tracking-wide text-ink-soft uppercase">
+            Escala — <code class="font-mono normal-case">--color-olive-*</code>
+          </h3>
+          <div class="grid grid-cols-3 gap-3 sm:grid-cols-6 lg:grid-cols-11">
+            {
+              olive.map((n) => (
+                <div>
+                  <div
+                    class="h-12 rounded-md border border-line"
+                    style={`background: var(--color-olive-${n})`}
+                  />
+                  <p class="mt-1 font-mono text-xs text-ink-soft">{n}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div>
+          <h3 class="mb-3 text-xs font-medium tracking-wide text-ink-soft uppercase">
+            Semânticas — mudam com o tema
+          </h3>
+          <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+            {
+              semanticas.map((nome) => (
+                <div>
+                  <div
+                    class="h-12 rounded-md border border-line"
+                    style={`background: var(--color-${nome})`}
+                  />
+                  <p class="mt-1 font-mono text-xs text-ink-soft">--color-{nome}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div>
+          <h3 class="mb-3 text-xs font-medium tracking-wide text-ink-soft uppercase">
+            Feedback
+          </h3>
+          <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {
+              feedback.map((nome) => (
+                <div>
+                  <div
+                    class="h-12 rounded-md border border-line"
+                    style={`background: var(--color-${nome})`}
+                  />
+                  <p class="mt-1 font-mono text-xs text-ink-soft">--color-{nome}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </DocSection>
+
+    <DocSection
+      id="tipografia"
+      title="Tipografia"
+      desc="Source Serif 4 para títulos e enunciados; Inter para a interface."
+    >
+      <Card class="grid gap-8 sm:grid-cols-2">
+        <div>
+          <p class="font-mono text-xs text-ink-faint">--font-serif · Source Serif 4 Variable</p>
+          <p class="mt-3 font-serif text-2xl font-bold tracking-tight">
+            Provas e questões oficiais
+          </p>
+          <p class="mt-2 font-serif leading-relaxed text-ink-soft">
+            A respeito dos atos administrativos, julgue o item a seguir. O atributo da
+            presunção de legitimidade torna o ato presumivelmente válido.
+          </p>
+        </div>
+        <div>
+          <p class="font-mono text-xs text-ink-faint">--font-sans · Inter Variable</p>
+          <p class="mt-3 text-2xl font-bold tracking-tight">Interface e navegação</p>
+          <p class="mt-2 leading-relaxed text-ink-soft">
+            Filtre por banca, órgão, cargo, ano e assunto. Resolva e confira o gabarito
+            definitivo na hora, com a fonte de cada questão.
+          </p>
+          <p class="mt-3 flex gap-4 text-sm">
+            <span class="font-normal">Regular</span>
+            <span class="font-medium">Medium</span>
+            <span class="font-bold">Bold</span>
+          </p>
+        </div>
+      </Card>
+    </DocSection>
+
+    <DocSection id="raios" title="Raios" desc="Quatro raios de borda, de sm a xl.">
+      <div class="flex flex-wrap gap-6">
+        {
+          raios.map((r) => (
+            <div class="flex flex-col items-center gap-2">
+              <div
+                class="size-16 border border-line-strong bg-surface"
+                style={`border-radius: var(--radius-${r})`}
+              />
+              <p class="font-mono text-xs text-ink-soft">--radius-{r}</p>
+            </div>
+          ))
+        }
+      </div>
+    </DocSection>
+
+    <DocSection
+      id="botoes"
+      title="Botões"
+      desc="Variantes primary, outline e ghost nos tamanhos sm e md. Com href, renderiza como link."
+    >
+      <Card class="flex flex-wrap items-center gap-3">
+        <Button>Primary</Button>
+        <Button variant="outline">Outline</Button>
+        <Button variant="ghost">Ghost</Button>
+        <Button size="sm">Primary sm</Button>
+        <Button variant="outline" size="sm">Outline sm</Button>
+        <Button variant="ghost" size="sm">Ghost sm</Button>
+        <Button href="#botoes" variant="outline">Como link</Button>
+      </Card>
+    </DocSection>
+
+    <DocSection
+      id="badges-e-links"
+      title="Badges e links"
+      desc="Badge nas variantes soft e outline — aceita class para cores de feedback. Link subtle ou underline."
+    >
+      <Card class="flex flex-wrap items-center gap-x-6 gap-y-3">
+        <Badge>Badge soft</Badge>
+        <Badge variant="outline">Badge outline</Badge>
+        <Badge class="bg-success-soft text-success">Correta</Badge>
+        <Badge class="bg-danger-soft text-danger">Errada</Badge>
+        <Link href="#badges-e-links">Link subtle</Link>
+        <Link href="#badges-e-links" variant="underline">Link underline</Link>
+      </Card>
+    </DocSection>
+
+    <DocSection id="select" title="Select" desc="Campo de filtro com rótulo e placeholder.">
+      <Card class="grid gap-3 sm:grid-cols-3">
+        <Select label="Banca" options={['Cebraspe', 'FGV', 'FCC']} />
+        <Select label="Ano" options={['2024', '2023', '2022']} />
+        <Select label="Assunto" options={['Direito Administrativo', 'Língua Portuguesa']} />
+      </Card>
+    </DocSection>
+
+    <DocSection
+      id="alternativa"
+      title="Alternativa"
+      desc="Opção de resposta com role=radio. O estado visual vem de data-state: selected, correct, wrong e dim."
+    >
+      <div class="grid gap-1.5 sm:grid-cols-2">
+        <Alternativa valor="a" letra="A">Neutro — aguardando resposta</Alternativa>
+        <Alternativa valor="b" letra="B" data-state="selected">Selecionada</Alternativa>
+        <Alternativa valor="c" letra="C" data-state="correct">Correta</Alternativa>
+        <Alternativa valor="d" letra="D" data-state="wrong">Errada</Alternativa>
+        <Alternativa valor="e" letra="E" data-state="dim">Esmaecida (dim)</Alternativa>
+        <Alternativa valor="f" letra="F" disabled>Desabilitada</Alternativa>
+      </div>
+    </DocSection>
+
+    <DocSection
+      id="card-e-empty-state"
+      title="Card e EmptyState"
+      desc="Card é a superfície base do sistema; EmptyState é um Card para estados vazios."
+    >
+      <div class="grid gap-4 sm:grid-cols-2">
+        <Card>
+          <p class="font-medium">Card</p>
+          <p class="mt-1 text-sm text-ink-soft">
+            Superfície padrão para agrupar conteúdo — border-line, bg-surface, rounded-xl.
+          </p>
+        </Card>
+        <EmptyState>
+          EmptyState — usado quando uma lista ou página ainda não tem conteúdo.
+        </EmptyState>
+      </div>
+    </DocSection>
+
+    <DocSection
+      id="questao"
+      title="QuestionMeta e QuestionCard"
+      desc="A linha de metadados da questão e o cartão completo, composto e interativo — resolva e confira o gabarito."
+    >
+      <Card class="mb-4">
+        <QuestionMeta
+          banca="Cebraspe"
+          orgao="Polícia Federal"
+          cargo="Escrivão de Polícia Federal"
+          ano={2024}
+          assunto="Direito Administrativo"
+        />
+      </Card>
+      <QuestionCard q={exemplo} />
+    </DocSection>
+
+    <DocSection
+      id="marca"
+      title="Marca e ícones"
+      desc="Logotipo serifado, ícones de traço fino e o seletor de tema claro/escuro."
+    >
+      <Card class="flex flex-wrap items-end gap-x-10 gap-y-6">
+        <div>
+          <p class="mb-2 font-mono text-xs text-ink-faint">Logo · xl</p>
+          <Logo />
+        </div>
+        <div>
+          <p class="mb-2 font-mono text-xs text-ink-faint">Logo · lg</p>
+          <Logo size="lg" />
+        </div>
+        <div>
+          <p class="mb-2 font-mono text-xs text-ink-faint">Ícones</p>
+          <div class="flex items-center gap-3 text-ink-soft">
+            <Check class="size-5" />
+            <X class="size-5" />
+            <Sun class="size-5" />
+            <Moon class="size-5" />
+          </div>
+        </div>
+        <div>
+          <p class="mb-2 font-mono text-xs text-ink-faint">ThemeToggle</p>
+          <ThemeToggle />
+        </div>
+      </Card>
+    </DocSection>
+  </Container>
+
+  <SiteFooter />
+</Layout>

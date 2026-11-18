@@ -4,9 +4,9 @@ import Moon from './icons/Moon.astro';
 ---
 
 <button
-  id="theme-toggle"
   type="button"
   aria-label="Alternar tema"
+  data-theme-toggle
   class="inline-flex size-8 cursor-pointer items-center justify-center rounded-md border border-line text-ink-soft hover:bg-accent-soft hover:text-ink"
 >
   <Sun class="hidden size-4 dark:block" />
@@ -14,7 +14,9 @@ import Moon from './icons/Moon.astro';
 </button>
 
 <script>
-  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+  document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element) || !event.target.closest('[data-theme-toggle]'))
+      return;
     const dark = document.documentElement.classList.toggle('dark');
     localStorage.setItem('theme', dark ? 'dark' : 'light');
   });

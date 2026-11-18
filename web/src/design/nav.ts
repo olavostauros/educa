@@ -4,6 +4,7 @@ export const navItems = [
   { href: `${base}/`, label: 'Questões' },
   { href: `${base}/provas/`, label: 'Provas' },
   { href: `${base}/simulado/`, label: 'Simulado' },
+  { href: `${base}/design/`, label: 'Design' },
 ];
 
 export const projectLinks = [
