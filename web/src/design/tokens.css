@@ -83,3 +83,9 @@
   --color-danger-soft: oklch(0.31 0.06 32);
   --color-danger-line: oklch(0.47 0.11 32);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --default-transition-duration: 0ms;
+  }
+}
