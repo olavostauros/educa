@@ -17,7 +17,7 @@ const { valor, letra, class: className, ...rest } = Astro.props;
   class:list={[
     'group flex w-full cursor-pointer items-baseline gap-2 rounded-md border px-3 py-2 text-left text-sm transition-colors',
     'border-line bg-surface text-ink-soft',
-    'enabled:hover:border-olive-300 enabled:hover:bg-accent-soft enabled:hover:text-ink',
+    'enabled:hover:border-line-strong enabled:hover:bg-accent-soft enabled:hover:text-ink',
     'data-[state=selected]:border-accent data-[state=selected]:bg-accent-soft data-[state=selected]:text-ink',
     'data-[state=correct]:border-success-line data-[state=correct]:bg-success-soft data-[state=correct]:text-success',
     'data-[state=wrong]:border-danger-line data-[state=wrong]:bg-danger-soft data-[state=wrong]:text-danger',
@@ -29,7 +29,7 @@ const { valor, letra, class: className, ...rest } = Astro.props;
 >
   {
     letra && (
-      <span class="font-medium text-olive-400 group-data-[state=correct]:text-success group-data-[state=wrong]:text-danger">
+      <span class="font-medium text-ink-faint group-data-[state=correct]:text-success group-data-[state=wrong]:text-danger">
         {letra})
       </span>
     )

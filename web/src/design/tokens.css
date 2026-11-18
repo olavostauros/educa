@@ -16,8 +16,10 @@
   --color-paper: oklch(0.97 0.012 120);
   --color-surface: oklch(0.985 0.007 118);
   --color-line: var(--color-olive-200);
+  --color-line-strong: var(--color-olive-300);
   --color-ink: oklch(0.265 0.04 136);
   --color-ink-soft: oklch(0.47 0.045 133);
+  --color-ink-faint: var(--color-olive-400);
   --color-accent: var(--color-olive-700);
   --color-accent-strong: var(--color-olive-800);
   --color-accent-soft: var(--color-olive-100);
@@ -58,8 +60,10 @@
   --color-paper: oklch(0.185 0.028 136);
   --color-surface: oklch(0.235 0.032 135);
   --color-line: var(--color-olive-800);
+  --color-line-strong: var(--color-olive-700);
   --color-ink: oklch(0.935 0.015 128);
   --color-ink-soft: oklch(0.72 0.035 132);
+  --color-ink-faint: var(--color-olive-500);
   --color-accent: var(--color-olive-300);
   --color-accent-strong: var(--color-olive-200);
   --color-accent-soft: var(--color-olive-800);
