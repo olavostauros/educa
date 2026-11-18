@@ -26,7 +26,7 @@ const { valor, letra, class: className, ...rest } = Astro.props;
     'data-[state=wrong]:border-danger-line data-[state=wrong]:bg-danger-soft data-[state=wrong]:text-danger',
     'data-[state=dim]:opacity-60',
     'focus-visible:focus-ring',
-    'disabled:cursor-default',
+    'disabled:cursor-default aria-disabled:pointer-events-none',
     className,
   ]}
 >

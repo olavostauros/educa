@@ -88,6 +88,8 @@ const gabaritoTexto = certoErrado
     const resultado = card.querySelector<HTMLElement>('[data-resultado]');
     if (!gabarito || !botao || !resultado || !opcoes.length) return;
 
+    let respondida = false;
+
     function marcar(opcao: HTMLButtonElement) {
       opcoes.forEach((o) => {
         delete o.dataset.state;
@@ -101,24 +103,27 @@ const gabaritoTexto = certoErrado
 
     opcoes.forEach((opcao, i) => {
       opcao.tabIndex = i === 0 ? 0 : -1;
-      opcao.addEventListener('click', () => marcar(opcao));
+      opcao.addEventListener('click', () => {
+        if (!respondida) marcar(opcao);
+      });
       opcao.addEventListener('keydown', (e) => {
         const delta = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
         if (!delta) return;
         e.preventDefault();
         const proximo = opcoes[(i + delta + opcoes.length) % opcoes.length];
         proximo.focus();
-        marcar(proximo);
+        if (!respondida) marcar(proximo);
       });
     });
 
     botao.addEventListener('click', () => {
+      respondida = true;
       let acertou: boolean | null = null;
       opcoes.forEach((opcao) => {
         const correta = opcao.dataset.opcao === gabarito;
         const escolhida = opcao.getAttribute('aria-checked') === 'true';
         opcao.dataset.state = correta ? 'correct' : escolhida ? 'wrong' : 'dim';
-        opcao.disabled = true;
+        opcao.setAttribute('aria-disabled', 'true');
         if (escolhida) acertou = correta;
       });
 
@@ -131,6 +136,8 @@ const gabaritoTexto = certoErrado
         acertou === false ? 'text-danger' : acertou ? 'text-success' : 'text-accent',
       );
       botao.classList.add('hidden');
+      resultado.tabIndex = -1;
+      resultado.focus();
     });
   });
 </script>
