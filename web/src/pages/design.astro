@@ -237,7 +237,7 @@ const exemplo = questions.find((q) => q.tipo === 'multipla_escolha') ?? question
       title="Alternativa"
       desc="Opção de resposta com role=radio. O estado visual vem de data-state: selected, correct, wrong e dim."
     >
-      <div class="grid gap-1.5 sm:grid-cols-2">
+      <div class="grid gap-1.5 sm:grid-cols-2" role="radiogroup" aria-label="Estados da alternativa">
         <Alternativa valor="a" letra="A">Neutro — aguardando resposta</Alternativa>
         <Alternativa valor="b" letra="B" data-state="selected">Selecionada</Alternativa>
         <Alternativa valor="c" letra="C" data-state="correct">Correta</Alternativa>
