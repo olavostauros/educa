@@ -9,7 +9,7 @@ interface Props {
 const { id, title, desc, class: className } = Astro.props;
 ---
 
-<section id={id} class:list={['mb-12 scroll-mt-24', className]}>
+<section id={id} class:list={['mb-12 scroll-mt-28', className]}>
   <h2 class="font-serif text-2xl font-bold tracking-tight">{title}</h2>
   {desc && <p class="mt-1 max-w-2xl text-sm text-ink-soft">{desc}</p>}
   <div class="mt-5">
