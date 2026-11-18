@@ -1,4 +1,7 @@
 ---
+import Check from './icons/Check.astro';
+import X from './icons/X.astro';
+
 interface Props {
   valor: string;
   letra?: string;
@@ -35,9 +38,6 @@ const { valor, letra, class: className, ...rest } = Astro.props;
     )
   }
   <span><slot /></span>
-  <span aria-hidden="true" class="ml-auto hidden font-medium group-data-[state=correct]:inline"
-    >✓</span
-  >
-  <span aria-hidden="true" class="ml-auto hidden font-medium group-data-[state=wrong]:inline">✗</span
-  >
+  <Check class="ml-auto hidden size-4 group-data-[state=correct]:inline" />
+  <X class="ml-auto hidden size-4 group-data-[state=wrong]:inline" />
 </button>
