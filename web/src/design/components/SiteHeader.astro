@@ -1,6 +1,7 @@
 ---
 import Badge from './Badge.astro';
 import Container from './Container.astro';
+import Logo from './Logo.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import { navItems } from '../nav';
 
@@ -10,12 +11,7 @@ const current = normalize(Astro.url.pathname);
 
 <header class="sticky top-0 z-10 border-b border-line bg-paper/80 backdrop-blur">
   <Container class="flex flex-wrap items-center justify-between gap-x-6 py-3 sm:py-4">
-    <a
-      href={import.meta.env.BASE_URL}
-      class="font-serif text-xl font-bold tracking-tight text-accent"
-    >
-      papiro
-    </a>
+    <Logo href={import.meta.env.BASE_URL} />
 
     <nav aria-label="Principal" class="order-3 mt-2 w-full sm:order-none sm:mt-0 sm:w-auto">
       <ul class="flex gap-5 text-sm">
