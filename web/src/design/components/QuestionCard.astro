@@ -3,6 +3,7 @@ import Alternativa from './Alternativa.astro';
 import Badge from './Badge.astro';
 import Button from './Button.astro';
 import Card from './Card.astro';
+import Link from './Link.astro';
 
 interface Question {
   id: string;
@@ -79,12 +80,9 @@ const gabaritoTexto = certoErrado
   <div class="mt-4 flex flex-wrap items-center gap-4 text-sm">
     <Button variant="ghost" size="sm" type="button" data-ver-gabarito>Ver gabarito</Button>
     <p data-resultado role="status" class="hidden font-medium"></p>
-    <a
-      href={q.fonte}
-      class="ml-auto text-ink-soft underline decoration-line underline-offset-2 hover:text-ink"
-    >
+    <Link href={q.fonte} variant="underline" class="ml-auto">
       Fonte oficial
-    </a>
+    </Link>
   </div>
 </Card>
 
